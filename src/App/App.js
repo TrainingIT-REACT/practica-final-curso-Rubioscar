@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Load from './Load';
 
 // Css
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +51,7 @@ class App extends Component {
             </ul>
           }
         <h2>¿Dudas?</h2>
+        <Load/>
         <p>
           No olvides pasarte por el foro si tienes alguna duda sobre la práctica final
           o la plantilla :).
