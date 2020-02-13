@@ -6,3 +6,7 @@
 .App h1 {
   text-align: center;
 }
+
+.cardcss.card {
+  min-width: 18rem;
+}

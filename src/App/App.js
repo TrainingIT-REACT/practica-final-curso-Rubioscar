@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Load from './Load';
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import Albums from './Albums';
+import Inicio from './Inicio'
 
 // Css
 import './App.css';
@@ -31,32 +34,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Plantilla de la práctica final!</h1>
-        <p>
-          Esta plantilla contiene todo lo necesario para comenzar a
-          desarrollar la práctica final. Antes de comenzar a desarrollar,
-          lee la documentación de la práctica y el fichero README.md de
-          este repositorio.
-        </p>
-        <h2>Servidor de desarrollo</h2>
-        <p>
-          El proyecto está preconfigurado con un servidor de desarrollo basado
-          en json-server:
-        </p>
-          { this.state.loading ?
-            <p>Cargando...</p>
-            : <ul>
-              {this.state.albums.map(album => <li key={album.id}>{album.name}</li>)}
-            </ul>
-          }
-        <h2>¿Dudas?</h2>
-        <Load/>
-        <p>
-          No olvides pasarte por el foro si tienes alguna duda sobre la práctica final
-          o la plantilla :).
-        </p>
-      </div>
+      <Router>
+        <div className="App">
+          <h1>Spotify falso!</h1>
+          <p>
+            <NavLink exact to="/home">Inicio</NavLink>
+            {' '}
+            <NavLink to="/albums">Albums</NavLink>
+          </p>
+        </div>
+        <Route path="/home" exact component={Inicio}/>
+        <Route path="/albums" exact component={Albums}/>
+      </Router>
     );
   }
 }
