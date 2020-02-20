@@ -2,9 +2,7 @@ import { createAsyncAction } from 'redux-promise-middleware-actions';
 
 export const getAlbumSongs = createAsyncAction('SONGS', async (id) => {
   const res = await fetch('/songs')
-  var canciones = await res.json();
+  const canciones = await res.json();
   console.log(id);
-  return canciones.filter(song => 
-      song.album_id === id
-  );
+  return canciones.filter(item => item.album_id === parseInt(id, 10));
 });
