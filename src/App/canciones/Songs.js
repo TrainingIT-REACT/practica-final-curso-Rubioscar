@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 //import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 import { getAlbumSongs } from '../actions/songs';
+import { getAlbum } from '../actions/albums';
 
 // Css
 import '../App.css';
@@ -19,28 +23,43 @@ class Songs extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.idAlbum);
-        this.props.fetchSongs(this.state.idAlbum);
+        this.props.fetchSongs(parseInt(this.state.idAlbum));
+        this.props.fectchAlbum(parseInt(this.state.idAlbum));
     }
 
-    onClick(e) {
+    onClick() {
     }
 
     render() {
+      const { album } = this.props;
+
       return (
         <div className="App">
-          <div className="row">
-            { this.props.isloading ?
-                <Load/>
-                : <ListGroup >
-                    {this.props.songs.map(song =>
-                        <ListGroup.Item action onClick={() => this.onClick}>
-                            Nombre: {song.name} Duracion: {song.seconds} sec
-                        </ListGroup.Item>
-                    )}
-                </ListGroup>
-              }
-          </div>
+          <Row>
+            <Col>
+              <Card>
+                <Card.Img variant="top" src={album.cover} />
+                <Card.Body>
+                  <Card.Title>Autor: {album.artist}</Card.Title>
+                  <Card.Text>
+                    Album: {album.name}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              { this.props.isloading ?
+                  <Load/>
+                  : <ListGroup >
+                      {this.props.songs.map(song =>
+                          <ListGroup.Item action onClick={() => this.onClick()}>
+                              Nombre: {song.name} Duracion: {song.seconds} sec
+                          </ListGroup.Item>
+                      )}
+                  </ListGroup>
+                }
+            </Col>
+          </Row>
         </div>
       );
     }
@@ -50,11 +69,13 @@ const mapStateToProps = (state) => {
   return {
     songs: state.canciones.songs,
     isloading: state.canciones.isLoading,
+    album: state.albun.album,
   }
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSongs: (id) => dispatch(getAlbumSongs(id)),
+  fectchAlbum: (id) => dispatch(getAlbum(id)),
 });
 
 export default connect(

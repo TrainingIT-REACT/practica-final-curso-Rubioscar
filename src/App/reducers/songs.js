@@ -9,7 +9,6 @@ const initialState = {
 
 // Implementamos el reducer
 const canciones = (state = initialState, action) => {
-    console.log(action);
   switch(action.type) {
     case String(getAlbumSongs.pending):
       return {
