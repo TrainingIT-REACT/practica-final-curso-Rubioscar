@@ -1,15 +1,20 @@
 import { getAlbums, getAlbum } from '../actions/albums';
 
 // Estado inicial
-const initialState = {
+const initialStateAlbunes = {
     isLoading: false,
     albums: [],
-    album: {},
     error: false
 }
 
+const initialStateAlbun = {
+  isLoading: false,
+  album: {},
+  error: false
+}
+
 // Implementamos el reducer
-export const albunes = (state = initialState, action) => {
+export const albunes = (state = initialStateAlbunes, action) => {
   switch(action.type) {
     case String(getAlbums.pending):
       return {
@@ -35,7 +40,7 @@ export const albunes = (state = initialState, action) => {
   }
 }
 
-export const albun = (state = initialState, action) => {
+export const albun = (state = initialStateAlbun, action) => {
   switch(action.type) {
     case String(getAlbum.pending):
       return {

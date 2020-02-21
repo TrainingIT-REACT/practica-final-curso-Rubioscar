@@ -1,64 +1,64 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Load from './Load';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import CardDeck from 'react-bootstrap/CardDeck';
+import { getTrendsSongs } from './actions/songs';
 
 // Css
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Inicio extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      loading: true,
-      albums: []
-    }
+  componentDidMount() {
+    this.props.fetchTrends();
   }
 
-  async componentDidMount() {
-    try {
-      const res = await fetch('/albums');
-      const json = await res.json();
-      this.setState((prevState) => ({
-        ...prevState,
-        loading: false,
-        albums: json
-      }));
-    } catch(err) {
-      console.error("Error accediendo al servidor", err);
-    }
+  onClick() {
   }
 
   render() {
     return (
         <div className="App">
-          <h1>Plantilla de la práctica final!</h1>
-          <p>
-            Esta plantilla contiene todo lo necesario para comenzar a
-            desarrollar la práctica final. Antes de comenzar a desarrollar,
-            lee la documentación de la práctica y el fichero README.md de
-            este repositorio.
-          </p>
-          <h2>Servidor de desarrollo</h2>
-          <p>
-            El proyecto está preconfigurado con un servidor de desarrollo basado
-            en json-server:
-          </p>
-            { this.state.loading ?
-              <p>Cargando...</p>
-              : <ul>
-                {this.state.albums.map(album => <li key={album.id}>{album.name}</li>)}
-              </ul>
-            }
-          <h2>¿Dudas?</h2>
-          <Load/>
-          <p>
-            No olvides pasarte por el foro si tienes alguna duda sobre la práctica final
-            o la plantilla :).
-          </p>
+          <h1>Musica Recomendada!</h1>
+          <div className="row">
+            { this.props.isloading ?
+                <Load/>
+                : <CardDeck>
+                    {this.props.trends.map(song => 
+                      <Card className="cardcss" style={{ 'margin-bottom': '15px' }}>
+                        <Card.Body>
+                          <Card.Title>Name: {song.name}</Card.Title>
+                          <Card.Text>
+                            Esta canción tiene una duración de:
+                                      {song.seconds} sec
+                          </Card.Text>
+                          <Button onClick={() => this.onClick(song.id)}>Reproducir</Button>
+                        </Card.Body>
+                      </Card>
+                      )}
+                  </CardDeck>
+              }
+          </div>
         </div>
     );
   }
 }
 
-export default Inicio;
+const mapStateToProps = (state) => {
+  return {
+    trends: state.tendencias.trends,
+    isloading: state.tendencias.isLoading,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchTrends: () => dispatch(getTrendsSongs()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inicio);

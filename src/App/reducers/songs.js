@@ -1,14 +1,20 @@
-import { getAlbumSongs } from '../actions/songs';
+import { getAlbumSongs, getTrendsSongs } from '../actions/songs';
 
 // Estado inicial
-const initialState = {
+const initialStateCanciones = {
     isLoading: false,
     songs: [],
     error: false
 }
 
+const initialStateTendencias = {
+  isLoading: false,
+  trends: [],
+  error: false
+}
+
 // Implementamos el reducer
-const canciones = (state = initialState, action) => {
+export const canciones = (state = initialStateCanciones, action) => {
   switch(action.type) {
     case String(getAlbumSongs.pending):
       return {
@@ -34,4 +40,30 @@ const canciones = (state = initialState, action) => {
   }
 }
 
-export default canciones;
+export const tendencias = (state = initialStateTendencias, action) => {
+  switch(action.type) {
+    case String(getTrendsSongs.pending):
+      return {
+        ...state,
+        isLoading: true,
+        error: false
+      };
+    case String(getTrendsSongs.fulfilled):
+      return {
+        ...state,
+        isLoading: false,
+        trends: action.payload,
+        error: false
+      }
+    case String(getTrendsSongs.rejected):
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      }
+    default:
+      return state;
+  }
+}
+
+// export default canciones;

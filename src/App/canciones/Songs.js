@@ -37,7 +37,9 @@ class Songs extends Component {
         <div className="App">
           <Row>
             <Col>
-              <Card>
+             { this.props.loading ?
+              <Load/>
+              : <Card>
                 <Card.Img variant="top" src={album.cover} />
                 <Card.Body>
                   <Card.Title>Autor: {album.artist}</Card.Title>
@@ -46,6 +48,7 @@ class Songs extends Component {
                   </Card.Text>
                 </Card.Body>
               </Card>
+             }
             </Col>
             <Col>
               { this.props.isloading ?
@@ -69,6 +72,7 @@ const mapStateToProps = (state) => {
   return {
     songs: state.canciones.songs,
     isloading: state.canciones.isLoading,
+    loading:  state.albun.isLoading,
     album: state.albun.album,
   }
 };

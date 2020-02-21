@@ -4,9 +4,9 @@ import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { albunes, albun } from './reducers/albums';
-import canciones from './reducers/songs';
+import { canciones, tendencias } from './reducers/songs';
 
 export default createStore(
-    combineReducers({albunes, albun, canciones}),
+    combineReducers({albunes, albun, canciones, tendencias}),
     composeWithDevTools(applyMiddleware(createPromise(), createLogger()))
 );
