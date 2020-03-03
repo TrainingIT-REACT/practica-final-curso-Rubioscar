@@ -4,8 +4,12 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import Albums from './albunes/Albums';
 import Songs from './canciones/Songs';
 import Inicio from './Inicio';
+import Login from './Login';
 import store from './store';
 import { Provider } from "react-redux";
+import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 // Css
 import './App.css';
@@ -41,15 +45,21 @@ class App extends Component {
         <Router>
           <div className="App">
             <h1>Spotify falso!</h1>
-            <p>
-              <NavLink exact to="/home">Inicio</NavLink>
-              {' '}
-              <NavLink to="/albums">Albums</NavLink>
-            </p>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand href="/home">Falso</Navbar.Brand>
+              <Nav className="mr-auto">
+                <Nav.Link href="/home">Home</Nav.Link>
+                <Nav.Link href="/albums">Albums</Nav.Link>
+              </Nav>
+              <NavLink to="/login">
+                <Button variant="outline-info">Login</Button>
+              </NavLink>
+            </Navbar>
           </div>
           <Route path="/home" exact component={Inicio}/>
           <Route path="/albums" exact component={Albums}/>
           <Route path="/albums/:id" component={Songs}/>
+          <Route path="/login" component={Login}/>
         </Router>
       </Provider>
     );
