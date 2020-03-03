@@ -1,4 +1,4 @@
-import { getAlbumSongs, getTrendsSongs } from '../actions/songs';
+import { getAlbumSongs, getTrendsSongs, getSong } from '../actions/songs';
 
 // Estado inicial
 const initialStateCanciones = {
@@ -10,6 +10,12 @@ const initialStateCanciones = {
 const initialStateTendencias = {
   isLoading: false,
   trends: [],
+  error: false
+}
+
+const initialStateSong = {
+  isLoading: false,
+  song: {},
   error: false
 }
 
@@ -56,6 +62,32 @@ export const tendencias = (state = initialStateTendencias, action) => {
         error: false
       }
     case String(getTrendsSongs.rejected):
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      }
+    default:
+      return state;
+  }
+}
+
+export const cancion = (state = initialStateSong, action) => {
+  switch(action.type) {
+    case String(getSong.pending):
+      return {
+        ...state,
+        isLoading: true,
+        error: false
+      };
+    case String(getSong.fulfilled):
+      return {
+        ...state,
+        isLoading: false,
+        song: action.payload,
+        error: false
+      }
+    case String(getSong.rejected):
       return {
         ...state,
         isLoading: false,

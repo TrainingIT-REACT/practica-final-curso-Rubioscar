@@ -16,7 +16,8 @@ class Inicio extends Component {
     this.props.fetchTrends();
   }
 
-  onClick() {
+  onClick(id) {
+    this.props.history.push(`/song/${id}`);
   }
 
   render() {

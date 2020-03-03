@@ -6,6 +6,7 @@ import Songs from './canciones/Songs';
 import Inicio from './Inicio';
 import Login from './usuario/Login';
 import Perfil from './usuario/Perfil';
+import Song from './canciones/Song';
 import store from './store';
 import { Provider } from "react-redux";
 import Button from 'react-bootstrap/Button';
@@ -63,6 +64,7 @@ class App extends Component {
           <Route path="/albums/:id" component={Songs}/>
           <Route path="/login" component={Login}/>
           <Route path="/user" component={Perfil}/>
+          <Route path="/song/:id" component={Song}/>
         </Router>
       </Provider>
     );

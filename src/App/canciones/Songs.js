@@ -27,7 +27,8 @@ class Songs extends Component {
         this.props.fectchAlbum(parseInt(this.state.idAlbum));
     }
 
-    onClick() {
+    onClick(id) {
+      this.props.history.push(`/song/${id}`);
     }
 
     render() {
@@ -55,7 +56,7 @@ class Songs extends Component {
                   <Load/>
                   : <ListGroup >
                       {this.props.songs.map(song =>
-                          <ListGroup.Item action onClick={() => this.onClick()}>
+                          <ListGroup.Item action onClick={() => this.onClick(song.id)}>
                               Nombre: {song.name} Duracion: {song.seconds} sec
                           </ListGroup.Item>
                       )}
