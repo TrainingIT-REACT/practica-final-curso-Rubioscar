@@ -10,3 +10,14 @@
 .cardcss.card {
   min-width: 18rem;
 }
+
+.navlink {
+  color: rgba(255,255,255,.5);
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+.navlink:hover {
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { setUser } from '../actions/user';
 import { connect } from 'react-redux';
 
 class Login extends Component {
@@ -8,6 +9,9 @@ class Login extends Component {
         super(props);
 
         this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeApellido = this.onChangeApellido.bind(this);
+        this.onChangeDescrip = this.onChangeDescrip.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             name: null,
@@ -16,11 +20,18 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
-    }
+    onSubmit(e) {
+        e.preventDefault();
 
-    onSubmit() {
-        console.log(this.state.name);
+        this.props.setUser(
+            {
+                name: this.state.name,
+                apellido: this.state.apellido,
+                descripcion: this.state.descripcion
+            }
+        )
+
+        this.props.history.push(`/user`);
     }
 
     onChangeName(e) {
@@ -28,14 +39,18 @@ class Login extends Component {
     }
 
     onChangeApellido(e) {
-        console.log(e);
+        this.setState({ apellido: e.target.value });
+    }
+
+    onChangeDescrip(e) {
+        this.setState({ descripcion: e.target.value });
     }
 
     render() {
 
       return (
         <div className="App">
-            <Form onSubmit={() => this.onSubmit()}>
+            <Form onSubmit={this.onSubmit}>
                 <Form.Group>
                     <Form.Label htmlFor="name">
                         Introduce tu nombre
@@ -47,15 +62,15 @@ class Login extends Component {
                     <Form.Label>
                         Introduce tu apllido
                     </Form.Label>
-                    <Form.Control id="apellido" type="text" value={this.state.name} 
-                    placeholder="Apellidos" onChange={(ref) => this.onChangeApellido(ref)}/>
+                    <Form.Control id="apellido" type="text" value={this.state.apellido} 
+                    placeholder="Apellidos" onChange={this.onChangeApellido}/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
                         Introduce tu descripcion
                     </Form.Label>
-                    <Form.Control id="descripcion" as="textarea" rows="3" value={this.state.name} 
-                    placeholder="Descripcion" onChange={this.onChangeName}/>
+                    <Form.Control id="descripcion" as="textarea" rows="3" value={this.state.descripcion} 
+                    placeholder="Descripcion" onChange={this.onChangeDescrip}/>
                 </Form.Group>
                 <Button type="submit">Logeate!</Button>
             </Form>
@@ -64,18 +79,16 @@ class Login extends Component {
     }
 }
 
-/*const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
-    songs: state.canciones.songs,
-    isloading: state.canciones.isLoading,
-    loading:  state.albun.isLoading,
-    album: state.albun.album,
   }
-};*/
+};
 
-/*const mapDispatchToProps = (dispatch) => ({
-  fetchSongs: (id) => dispatch(getAlbumSongs(id)),
-  fectchAlbum: (id) => dispatch(getAlbum(id)),
-});*/
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch(setUser(user)),
+});
 
-export default (Login);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+) (Login);
