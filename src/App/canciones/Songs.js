@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 import { getAlbumSongs } from '../actions/songs';
 import { getAlbum } from '../actions/albums';
+import { setSong } from '../actions/historico';
 
 // Css
 import '../App.css';
@@ -27,8 +28,9 @@ class Songs extends Component {
         this.props.fectchAlbum(parseInt(this.state.idAlbum));
     }
 
-    onClick(id) {
-      this.props.history.push(`/song/${id}`);
+    onClick(song) {
+      this.props.setSongHistory(song);
+      this.props.history.push(`/song/${song.id}`);
     }
 
     render() {
@@ -56,7 +58,7 @@ class Songs extends Component {
                   <Load/>
                   : <ListGroup >
                       {this.props.songs.map(song =>
-                          <ListGroup.Item action onClick={() => this.onClick(song.id)}>
+                          <ListGroup.Item action onClick={() => this.onClick(song)}>
                               Nombre: {song.name} Duracion: {song.seconds} sec
                           </ListGroup.Item>
                       )}
@@ -81,6 +83,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchSongs: (id) => dispatch(getAlbumSongs(id)),
   fectchAlbum: (id) => dispatch(getAlbum(id)),
+  setSongHistory: (song) => dispatch(setSong(song)),
 });
 
 export default connect(

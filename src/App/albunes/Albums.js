@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import CardDeck from 'react-bootstrap/CardDeck';
 import { connect } from 'react-redux';
 import { getAlbums } from '../actions/albums';
+import { setAlbum } from "../actions/historico";
 
 // Css
 import '../App.css';
@@ -26,8 +27,9 @@ class Albums extends Component {
       }*/
     }
 
-    onClick(id) {
-      this.props.history.push(`/albums/${id}`);
+    onClick(album) {
+      this.props.setAlbumHistory(album);
+      this.props.history.push(`/albums/${album.id}`);
     }
 
     render() {
@@ -45,7 +47,7 @@ class Albums extends Component {
                           <Card.Text>
                             Album: {album.name}
                           </Card.Text>
-                          <Button onClick={() => this.onClick(album.id)}>Entrar</Button>
+                          <Button onClick={() => this.onClick(album)}>Entrar</Button>
                         </Card.Body>
                       </Card>
                       )}
@@ -66,6 +68,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAlbums: () => dispatch(getAlbums()),
+  setAlbumHistory: (album) => dispatch(setAlbum(album)),
 });
 
 export default connect(

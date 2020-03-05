@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardDeck from 'react-bootstrap/CardDeck';
 import { getTrendsSongs } from './actions/songs';
+import { setSong } from './actions/historico';
 
 // Css
 import './App.css';
@@ -16,8 +17,9 @@ class Inicio extends Component {
     this.props.fetchTrends();
   }
 
-  onClick(id) {
-    this.props.history.push(`/song/${id}`);
+  onClick(song) {
+    this.props.setSongHistory(song);
+    this.props.history.push(`/song/${song.id}`);
   }
 
   render() {
@@ -36,7 +38,7 @@ class Inicio extends Component {
                             Esta canción tiene una duración de:
                                       {song.seconds} sec
                           </Card.Text>
-                          <Button onClick={() => this.onClick(song.id)}>Reproducir</Button>
+                          <Button onClick={() => this.onClick(song)}>Reproducir</Button>
                         </Card.Body>
                       </Card>
                       )}
@@ -57,6 +59,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTrends: () => dispatch(getTrendsSongs()),
+  setSongHistory: (song) => dispatch(setSong(song)),
 });
 
 export default connect(

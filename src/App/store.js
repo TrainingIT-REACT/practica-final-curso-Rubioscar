@@ -6,8 +6,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { albunes, albun } from './reducers/albums';
 import { canciones, tendencias, cancion } from './reducers/songs';
 import user from './reducers/user';
+import historico from './reducers/historico';
 
 export default createStore(
-    combineReducers({albunes, albun, canciones, tendencias, cancion, user}),
+    combineReducers({albunes, albun, canciones, tendencias, cancion, user, historico}),
     composeWithDevTools(applyMiddleware(createPromise(), createLogger()))
 );
