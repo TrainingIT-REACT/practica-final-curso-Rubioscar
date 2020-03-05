@@ -12,20 +12,32 @@ import { Provider } from "react-redux";
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import UserContext from './usuario/context/UserContext';
+import PrivateRoute from './usuario/PrivateRoute';
 
 // Css
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
-  /*constructor(props) {
+  constructor(props) {
     super(props);
+    
+    this.updateUser = this.updateUser.bind(this);
 
     this.state = {
-      loading: true,
-      albums: []
+      signedIn: false,
+      updateUser: this.updateUser,
     }
-  }*/
+  }
+
+  updateUser(signedIn) {
+    this.setState(() => ({ signedIn }));
+  }
+
+  onclick() {
+    this.updateUser(false);
+  }
 
   /*async componentDidMount() {
     try {
@@ -45,26 +57,31 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <h1>Spotify falso!</h1>
-            <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href="/home">Falso</Navbar.Brand>
-              <Nav className="mr-auto">
-                <NavLink to="/home" className="navlink">Home</NavLink>
-                <NavLink to="/albums" className="navlink">Albums</NavLink>
-                <NavLink to="/user" className="navlink">Perfil</NavLink>
-              </Nav>
-              <NavLink to="/login">
-                <Button variant="outline-info">Login</Button>
-              </NavLink>
-            </Navbar>
-          </div>
-          <Route path="/home" exact component={Inicio}/>
-          <Route path="/albums" exact component={Albums}/>
-          <Route path="/albums/:id" component={Songs}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/user" component={Perfil}/>
-          <Route path="/song/:id" component={Song}/>
+          <UserContext.Provider value={this.state}>
+            <div className="App">
+              <h1>Spotify falso!</h1>
+              <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="/home">Falso</Navbar.Brand>
+                <Nav className="mr-auto">
+                  <NavLink to="/home" className="navlink">Home</NavLink>
+                  <NavLink to="/albums" className="navlink">Albums</NavLink>
+                  <NavLink to="/user" className="navlink">Perfil</NavLink>
+                </Nav>
+                { (!this.state.signedIn) ?
+                  <NavLink to="/login">
+                    <Button variant="outline-info">Login</Button>
+                  </NavLink> :
+                  <Button variant="outline-info" onClick={() => this.onclick()}>Logout</Button>
+                }
+              </Navbar>
+            </div>
+            <Route path="/home" exact component={Inicio}/>
+            <Route path="/albums" exact component={Albums}/>
+            <Route path="/albums/:id" component={Songs}/>
+            <Route path="/login" component={Login}/>
+            <PrivateRoute path="/user" component={Perfil}/>
+            <Route path="/song/:id" component={Song}/>
+          </UserContext.Provider>
         </Router>
       </Provider>
     );

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 //import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 import { getSong } from '../actions/songs';
+import ReactAudioPlayer from 'react-audio-player';
 
 // Css
 import '../App.css';
@@ -51,7 +51,11 @@ class Song extends Component {
             <Col>
               { this.props.isloading ?
                   <Load/>
-                  : null
+                  : <ReactAudioPlayer
+                      src={song.audio}
+                      autoPlay
+                      controls
+                    />
                 }
             </Col>
           </Row>
