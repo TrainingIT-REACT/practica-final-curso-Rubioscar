@@ -11,16 +11,16 @@ const historico = (state = initialState, action) => {
             return {
                 ...state,
                 albums: [
-                    ...state.albums,
                     action.payload,
+                    ...state.albums,
                 ]
             };
         case "SET_SONG" :
             return {
                 ...state,
                 songs: [
-                    ...state.songs,
                     action.payload,
+                    ...state.songs,
                 ]
             };
         default:
