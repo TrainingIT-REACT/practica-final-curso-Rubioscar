@@ -49,7 +49,7 @@ class Perfil extends Component {
               <ListGroup >
                   {albums.map(albums =>
                     <ListGroup.Item action onClick={() => this.onClickAlbum(albums.id)}>
-                      Nombre: {albums.name} Duracion: {albums.artist} sec
+                      Nombre: {albums.name} Artista: {albums.artist} sec
                     </ListGroup.Item> 
                   )}
               </ListGroup>

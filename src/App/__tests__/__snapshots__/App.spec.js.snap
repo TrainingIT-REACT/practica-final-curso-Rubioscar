@@ -4,24 +4,50 @@ exports[`App renders correctly 1`] = `
 <div
   class="App"
 >
-  <header
-    class="App-header"
+  <h1>
+    Spotify falso!
+  </h1>
+  <nav
+    class="navbar navbar-expand navbar-dark bg-dark"
   >
-    <p>
-      Edit 
-      <code>
-        src/App.js
-      </code>
-       and save to reload.
-    </p>
     <a
-      class="App-link"
-      href="https://reactjs.org"
-      rel="noopener noreferrer"
-      target="_blank"
+      class="navbar-brand"
+      href="/home"
     >
-      Learn React
+      Falso
     </a>
-  </header>
+    <div
+      class="mr-auto navbar-nav"
+    >
+      <a
+        class="navlink"
+        href="/home"
+      >
+        Home
+      </a>
+      <a
+        class="navlink"
+        href="/albums"
+      >
+        Albums
+      </a>
+      <a
+        class="navlink"
+        href="/user"
+      >
+        Perfil
+      </a>
+    </div>
+    <a
+      href="/login"
+    >
+      <button
+        class="btn btn-outline-info"
+        type="button"
+      >
+        Login
+      </button>
+    </a>
+  </nav>
 </div>
 `;
